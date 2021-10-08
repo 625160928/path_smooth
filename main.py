@@ -1,17 +1,28 @@
+from polynomial_smooth import PolynomialSmooth
+import matplotlib.pyplot as plt
+import numpy as np
 
-# This is a sample Python script.
+def new_test(x,y,theta):
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+    poly=PolynomialSmooth()
 
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    x,yvals,theta=poly.smooth(x,y,theta,4)
 
 
-# Press the green button in the gutter to run the script.
+    plot1=plt.plot(x, y, '*',label='original values')
+    plot2=plt.plot(x, yvals, 'r',label='polyfit values')
+    plt.xlabel('x axis')
+    plt.ylabel('y axis')
+    plt.legend(loc=4) # 指定legend的位置,读者可以自己help它的用法
+    plt.title('polyfitting')
+    plt.show()
+
+
+def new_test1():
+    x = np.arange(1, 17, 1)
+    y = np.array([4.00, 6.40, 8.00, 8.80, 9.22, 9.50, 9.70, 9.86, 10.00, 10.20, 10.32, 10.42, 10.50, 10.55, 10.58, 10.60])
+    new_test(x,y,0)
+
 if __name__ == '__main__':
-    print_hi('PyCh123arm')
+    new_test1()
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
