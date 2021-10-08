@@ -1,13 +1,25 @@
-from polynomial_smooth import PolynomialSmooth
+import math
 import matplotlib.pyplot as plt
 import numpy as np
 
+from polynomial_smooth import PolynomialSmooth
+from function_smooth import FunctionSmooth
+
 def new_test(x,y,theta):
 
-    poly=PolynomialSmooth()
+    # poly=PolynomialSmooth()
+    # x,yvals,theta=poly.smooth(x,y,theta,4)
 
-    x,yvals,theta=poly.smooth(x,y,theta,4)
+    function=FunctionSmooth()
+    x,yvals,theta=function.smooth(route_x=x,route_y=y,route_theta=theta)
 
+
+
+    route_x=x
+    new_route_y=yvals
+    new_route_theta=theta
+    for i in range(len(route_x)):
+        print(route_x[i],new_route_y[i],new_route_theta[i]*180/math.pi)
 
     plot1=plt.plot(x, y, '*',label='original values')
     plot2=plt.plot(x, yvals, 'r',label='polyfit values')
