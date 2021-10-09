@@ -1,6 +1,4 @@
 import math
-
-import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import numpy as np
 
@@ -11,8 +9,6 @@ def function1(x,a,b):
 #https://www.cnblogs.com/jingsupo/p/python_curve_fit.html
 
 class FunctionSmooth():
-    def __init__(self):
-        a=0
 
     def smooth(self,route_x,route_y,route_theta,func=function1):
         popt, pcov = curve_fit(func, route_x,route_y)
