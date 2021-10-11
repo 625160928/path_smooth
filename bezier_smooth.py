@@ -6,10 +6,10 @@ class BezierSmooth():
     # 输入控制点，Points是一个array,num是控制点间的插补个数
     def __init__(self,route_x,route_y,route_theta,InterpolationNum=1000):
         Points=[]
-        # for i in range(len(route_x)):
-        #     Points.append([route_x[i],route_y[i],route_theta[i]])
         for i in range(len(route_x)):
-            Points.append([route_x[i],route_y[i]])
+            Points.append([route_x[i],route_y[i],route_theta[i]])
+        # for i in range(len(route_x)):
+        #     Points.append([route_x[i],route_y[i]])
         Points=np.array(Points)
         self.demension=Points.shape[1]   # 点的维度
         self.order=Points.shape[0]-1     # 贝塞尔阶数=控制点个数-1
