@@ -18,6 +18,4 @@ class PolynomialSmooth():
         new_route_theta=[]
         for i in dy:
             new_route_theta.append(math.atan2(i,1))
-        for i in range(len(route_x)):
-            print(route_x[i],new_route_y[i],new_route_theta[i]*180/math.pi)
         return route_x,new_route_y,new_route_theta

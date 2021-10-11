@@ -75,6 +75,7 @@ if __name__ == '__main__':
         X[i]= X[i]/10
     for i in range(len(Y)):
         Y[i]= Y[i]/10
+
     draw_b_spline(n,k,nodeVector,X,Y)
 
 
