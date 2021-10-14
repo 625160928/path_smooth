@@ -4,7 +4,7 @@ import math
 
 class BezierSmooth():
     # 输入控制点，Points是一个array,num是控制点间的插补个数
-    def __init__(self,route_x,route_y,route_theta,InterpolationNum=1000):
+    def __init__(self,route_x,route_y,route_theta,InterpolationNum=100):
         Points=[]
         for i in range(len(route_x)):
             Points.append([route_x[i],route_y[i],route_theta[i]])
