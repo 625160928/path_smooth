@@ -60,13 +60,14 @@ def smooth(x,y,theta,method='poly'):
         new_route_x,new_route_y,new_route_theta=BSplineSmooth().smooth(x,y,theta,k=3)
     return new_route_x,new_route_y,new_route_theta
 
+
+
 def new_test(x,y,theta,method='poly'):
 
     new_route_x,new_route_y,new_route_theta=smooth(x,y,theta,method)
 
     for i in range(len(new_route_x)):
         print(new_route_x[i],new_route_y[i],new_route_theta[i])
-
 
 
     plot1=plt.plot(x, y, '*',label='original values')
@@ -78,12 +79,10 @@ def new_test(x,y,theta,method='poly'):
     plt.show()
 
 
-def new_test1():
+
+if __name__ == '__main__':
     x = np.arange(1, 17, 1)
     y = np.array([4.00, 6.40, 8.00, 8.80, 9.22, 9.50, 9.70, 9.86, 10.00, 10.20, 10.32, 10.42, 10.50, 10.55, 10.58, 10.60])
     theta = np.array([4.00, 6.40, 8.00, 8.80, 9.22, 9.50, 9.70, 9.86, 10.00, 10.20, 10.32, 10.42, 10.50, 10.55, 10.58, 10.60])
     new_test(x,y,theta,method='bezier')
-
-if __name__ == '__main__':
-    new_test1()
 
