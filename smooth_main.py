@@ -12,7 +12,19 @@ from .polynomial_smooth import PolynomialSmooth
 from .function_smooth import FunctionSmooth
 from .b_spline_smooth import BSplineSmooth
 
-def path_smooth(path:PathArray):
+"""
+平滑方法的名称集合
+"""
+smooth_method_list=['poly','function','bezier','bspline']
+
+
+"""
+功能：规范化路径的路径平滑
+输入：carla_nav_msgs.msg格式的 PathArray（path）,method
+输出：carla_nav_msgs.msg格式的 PathArray（path）
+方法：通过smooth method方法平滑规范化的路径
+"""
+def path_smooth(path:PathArray,smooth_method='bspline'):
     for i in range(len(path.paths)):
         x_arr=[]
         y_arr=[]
@@ -26,10 +38,16 @@ def path_smooth(path:PathArray):
             y_arr.append(y)
             theta_arr.append(theta)
             # print(x,y,theta*180/math.pi)
-        new_route_x,new_route_y,new_route_theta=smooth(x_arr,y_arr,theta_arr,method='bezier')
+        new_route_x,new_route_y,new_route_theta=smooth(x_arr,y_arr,theta_arr,method=smooth_method)
         path.paths[i].poses=route_to_formal_path(new_route_x,new_route_y,new_route_theta)
     return path
 
+"""
+功能：规范化路径
+输入：三个list 路径点x集合，y集合，theta集合
+输出：nav_msgs.msg格式的 Path
+方法：规范化路径
+"""
 def route_to_formal_path( route_x, route_y, route_theta):
     type_route = Path()
     for i in range(len(route_x)):
@@ -48,8 +66,14 @@ def route_to_formal_path( route_x, route_y, route_theta):
     return type_route
 
 
+"""
+功能：平滑方法的整合
+输入：三个list，以及一个方法选择参数method
+输出：三个list，或者是在找不到method的情况下返回输入的值
+方法：通过method的参数，选择对应的方法对路径进行平滑处理
+"""
 def smooth(x,y,theta,method='poly'):
-    new_route_x, new_route_y, new_route_theta=None,None,None
+    new_route_x, new_route_y, new_route_theta=x,y,theta
     if method=='poly':
         new_route_x,new_route_y,new_route_theta=PolynomialSmooth().smooth(x,y,theta,4)
     if method=='function':
@@ -62,6 +86,11 @@ def smooth(x,y,theta,method='poly'):
 
 
 
+"""
+平滑方法的测试
+输入：三个list，以及一个方法选择参数method
+输出：将平滑前后的路径画出来表示效果
+"""
 def new_test(x,y,theta,method='poly'):
 
     new_route_x,new_route_y,new_route_theta=smooth(x,y,theta,method)
@@ -77,7 +106,6 @@ def new_test(x,y,theta,method='poly'):
     plt.legend(loc=4) # 指定legend的位置,读者可以自己help它的用法
     plt.title('polyfitting')
     plt.show()
-
 
 
 if __name__ == '__main__':
