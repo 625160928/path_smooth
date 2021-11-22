@@ -10,6 +10,25 @@ class PolynomialSmooth():
         p1 = np.poly1d(z1)
         return p1
 
+    def get_theta(self,route_x,route_y,route_theta=None,polynomial_times=3):
+        p1=self.fit(route_x, route_y,polynomial_times=polynomial_times)
+        dy=p1.deriv(1)(route_x)
+        new_route_theta=[]
+        for i in dy:
+            new_route_theta.append(math.atan2(i,1))
+
+        return new_route_theta
+
+    def get_cure(self,route_x,route_y,route_theta=None,polynomial_times=3):
+        p1=self.fit(route_x, route_y,polynomial_times=polynomial_times)
+        dtheta=p1.deriv(1)(route_x)
+        dcure=p1.deriv(2)(route_x)
+        new_route_cure=[]
+        for i in range(len(route_x)):
+            new_route_cure.append(abs(dcure[i])/(math.pow(1+math.pow(dtheta[i],2),1.5)))
+        return new_route_cure
+
+
     def smooth(self,route_x,route_y,route_theta=None,polynomial_times=3):
         p1=self.fit(route_x, route_y,polynomial_times=polynomial_times)
         new_route_y=p1(route_x)
