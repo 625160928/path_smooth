@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import copy
 
 class BezierSmooth():
     # 输入控制点，Points是一个array,num是控制点间的插补个数
@@ -55,7 +56,7 @@ class BezierSmooth():
     def DeCasteljauAlgo(self):
         pis =[]                          # 插补点
         for u in np.arange(0,1+1/self.num,1/self.num):
-            Att=self.Points
+            Att=copy.deepcopy(self.Points)
             for i in np.arange(0,self.order):
                 for j in np.arange(0,self.order-i):
                     Att[j]=(1.0-u)*Att[j]+u*Att[j+1]
